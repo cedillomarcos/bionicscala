@@ -1,11 +1,18 @@
 package org.bionic.system.nervous.central
 
-import org.bionic.system.nervous.Scheduler
+import java.util.concurrent.Executors
 
+import akka.actor.{Actor, ActorSystem, Props}
+import org.bionic.system.nervous.SpinalCord.{EfferentNerves}
+import org.bionic.system.nervous.SpinalCord
+import utils.Scheduler
+
+import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
 /**
- * Medulla object actions
+ * Medulla  or Medulla oblongata object actions
+ * Spanish (Bulbo Raquideo)
  *
  * Respiration is regulated by groups of chemoreceptors.
  *
@@ -22,6 +29,17 @@ import scala.concurrent.duration._
  *
  * The medulla oblongata helps regulate breathing, heart and blood vessel function, digestion, sneezing, and swallowing.
  * This part of the brain is a center for respiration and circulation.
+ *
+ * Regula el ritmo cardíaco del organismo y controlar su funcionamiento cardiovascular.
+ * Regula la presión arterial.
+ * Regula y controla las funciones viscerales.
+ * Regula el sistema respiratorio.
+ * Participa en los procesos de deglución.
+ * Regula la secreción de jugos digestivos.
+ * Controla el vómito, la tos y el estornudo, así como la acción de los músculos que se requieren para realizar tales acciones.
+ *
+ * https://es.wikipedia.org/wiki/Aparato_respiratorio#Control_de_la_ventilaci%C3%B3n
+ *
  */
 
 sealed trait MedullaFunctions {
@@ -31,6 +49,12 @@ sealed trait MedullaFunctions {
 
 object Medulla {
 
+  ///from medulla to organs
+  val medullaSystem = ActorSystem("MedullaSystem")
+  val efferent = medullaSystem.actorOf(Props[EfferentNerves], "Efferent")
+
+  implicit val executor = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
+
   private var breathRTM = 4000.millisecond
   private var hearRTMss = 4
 
@@ -38,12 +62,16 @@ object Medulla {
 
   def start() = {
 
-    implicit val clockLife: Scheduler = Scheduler.apply(1)
+    val breathRtm =
+      medullaSystem.scheduler.scheduleWithFixedDelay(Duration.Zero, breathRTM, efferent, "Breath")
 
+   // implicit val clockLife: Scheduler = Scheduler.apply(1)
+  }
 
-
-
-
+  class MedullaReceptors extends Actor {
+    override def receive: Receive = {
+      case "(+)CO2" => println ("High CO2")
+    }
   }
 
 }

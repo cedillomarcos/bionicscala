@@ -1,4 +1,4 @@
-package org.bionic
+package org.bionic.vitals
 
 class VitalSings {
 

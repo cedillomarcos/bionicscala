@@ -1,11 +1,11 @@
-package org.bionic.system.nervous
+package utils
 
 import java.util.concurrent.ThreadPoolExecutor.AbortPolicy
 import java.util.concurrent._
 import java.util.concurrent.atomic.AtomicInteger
 
-import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.util.Try
 
 
@@ -84,7 +84,6 @@ object Scheduler {
 }
 
 object EventBusExecutionContext {
-  import scala.concurrent.duration._
   private[this] val numProc = Runtime.getRuntime.availableProcessors()
   implicit val defaultExecutionContext = Scheduler(numProc + 1)
 }
