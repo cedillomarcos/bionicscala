@@ -1,8 +1,10 @@
 package org.bionic.system.respiratory
 
 
-import akka.actor.Actor
+import akka.actor.{Actor, Props}
 import atmospheric.Air
+import org.bionic.system.nervous.SpinalCord.AfferentNerves
+import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
 import org.bionic.system.nervous.{Nerve, NerveTermination}
 
 import scala.concurrent.ExecutionContext
@@ -34,10 +36,7 @@ sealed trait Breath {
 
 object RespiratoryTract {
 
-  var airInspired: Air = null
-
   def apply(implicit air:Air) = {
-    this.airInspired = air
     Lungs.ventilation( bronchi(trachea) )
   }
 
@@ -62,7 +61,7 @@ object RespiratoryTract {
    *
    */
   object Lungs {
-
+    val aefferent = medullaSystem.actorOf(Props[AfferentNerves], "Afferent")
     var airInspired: Air = null
 
     // def apply()(implicit sc: SpinalCord): Unit = {
@@ -71,6 +70,8 @@ object RespiratoryTract {
     }
 
     class NerveLungs extends Actor {
+      import context._
+
       override def receive: Receive = {
         case "Inspiration" => {
           println("Inpiration.......")
@@ -84,6 +85,7 @@ object RespiratoryTract {
       println(airInspired)
       interchange(airInspired)
 
+      aefferent ! "(+)CO2"
     }
 
     /*

@@ -1,4 +1,5 @@
 import atmospheric.AirComposition
+import org.bionic.system.circulatory.BloodCell
 
 object TestAir extends App {
   // altitude 0 pression 760 mmHG
@@ -10,6 +11,12 @@ object TestAir extends App {
   println(air)
   println((air.pO2 * 100) / air.pression())
 
+
+
+
+  val bloodcell = new BloodCell()
+  //bloodcell.transport["CO2"](20)
+  bloodcell.transport["O2"](20)
 }
 
 

@@ -18,7 +18,8 @@ object HVM_Main extends App {
     var airDry = AirComposition.airDry(0)
 
     var bionic = new BionicH(airDry)
-    bionic.air = airDry
+    bionic.start()
+    //bionic.air = airDry
 
     var ok = true
     while(ok){
@@ -28,8 +29,9 @@ object HVM_Main extends App {
         if( s == "air"){
             print("Put value altittude")
             val alttitude = StdIn.readInt()
-            airDry = AirComposition.airDry(alttitude)
-            println(airDry)
+            //airDry = AirComposition.airDry(alttitude)
+            airDry.pO2 = alttitude
+            //println(airDry)
         } else if ( s == "q") {
             ok = false
         }

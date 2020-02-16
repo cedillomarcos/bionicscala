@@ -1,8 +1,8 @@
 package org.bionic.system.nervous
 
 import akka.actor.{Actor, ActorSystem, Props}
-import org.bionic.system.nervous.central.Medulla.MedullaReceptors
-import org.bionic.system.respiratory.Lungs.NerveLungs
+import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
+import org.bionic.system.respiratory.RespiratoryTract.Lungs.NerveLungs
 
 /**
  * Spinal cord acts as a bus interchange messages between the central nerves system and
@@ -15,8 +15,10 @@ import org.bionic.system.respiratory.Lungs.NerveLungs
  */
 object SpinalCord {
 
+  val aefferent = medullaSystem.actorOf(Props[AfferentNerves], "Afferent")
+
   /*
-    From medulla to muscle
+    From medulla to muscle send
    */
   class EfferentNerves extends Actor {
     import context._
@@ -29,14 +31,14 @@ object SpinalCord {
   }
 
   /*
-   From receptors to medulla
+   From receptors to medulla arrival
    */
   class AfferentNerves extends Actor {
     import context._
     val medulla = actorOf(Props[MedullaReceptors], name = "Medulla")
 
     override def receive: Receive = {
-      case "(+)CO2" => medulla ! "(+)CO2"
+      case x => medulla ! x
     }
   }
 
