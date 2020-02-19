@@ -19,7 +19,10 @@ object AlveolarAir {
    * @return
    */
   //if temp are 37 º the pression are 47 mmhg
-  def pH2OByTemp(temp: Int = 37): Int = 47
+  def pH2OByTempDef(temp: Int = 37): Int = 47
+
+  val pH2OByTemp:Int => Int = temp => 47
+
 
   /**
    * Pression of any gas inspired with humidity

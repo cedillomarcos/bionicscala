@@ -8,18 +8,25 @@ class BloodCell {
 
   private var value = null
 
-  def T:String = ""
+  def T:String = "O2"
+
+  def diffusion(gas:Double) = {
+
+  }
+
+  def combine() = {
+
+  }
 
   def transport[T](gas:Double) = {
     T match {
       case "CO2" => println("Co2")
       case "O2" => println("O2")
     }
-
-
   }
-
-  private def addHemoglobine(): Unit ={
+  /*
+  //Hb + 4O2
+  private def addHemoglobine() = {
 
   }
 
@@ -27,7 +34,7 @@ class BloodCell {
   private def energyATP(): Unit = {
 
   }
-
+*/
 }
 
 

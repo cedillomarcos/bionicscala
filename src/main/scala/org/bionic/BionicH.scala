@@ -18,7 +18,7 @@ case class BionicH(airInspiration: Air) {
   var vitalSigns = new VitalSings()
 
 
-  RespiratoryTract.apply(airInspiration)
+  var airExpiration:Air =  RespiratoryTract.apply(airInspiration)
     //Start the live order
     Medulla.start()
 

@@ -30,7 +30,7 @@ object AirComposition {
      //STPD Standard Temperature Pression Dry
      def airDry(altitude: Int) : Air = {
 
-       var air:Air = new Air(
+       var air:Air = Air(
                     partialByAltitude(pressAtAltitude, altitude, ppmvO2),
                     partialByAltitude(pressAtAltitude, altitude, ppmvCO2),
                     partialByAltitude(pressAtAltitude, altitude, ppmvN2))

@@ -1,4 +1,4 @@
-import atmospheric.AirComposition
+import atmospheric.{Air, AirComposition}
 import org.bionic.system.circulatory.BloodCell
 
 object TestAir extends App {
@@ -11,6 +11,12 @@ object TestAir extends App {
   println(air)
   println((air.pO2 * 100) / air.pression())
 
+
+  var airT = Air(1,1,1)
+
+  println(airT)
+  println(airT.pression())
+ // airT.daltonLaw(760)
 
 
 

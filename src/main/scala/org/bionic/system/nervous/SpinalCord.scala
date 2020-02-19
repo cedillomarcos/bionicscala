@@ -2,7 +2,7 @@ package org.bionic.system.nervous
 
 import akka.actor.{Actor, ActorSystem, Props}
 import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
-import org.bionic.system.respiratory.RespiratoryTract.Lungs.NerveLungs
+import org.bionic.system.respiratory.RespiratoryTract.NerveLungs
 
 /**
  * Spinal cord acts as a bus interchange messages between the central nerves system and
@@ -41,7 +41,4 @@ object SpinalCord {
       case x => medulla ! x
     }
   }
-
-
-
 }
