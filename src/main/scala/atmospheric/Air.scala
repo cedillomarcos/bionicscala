@@ -8,12 +8,15 @@ abstract class AirS {
   def pO2 : Double = 0.0
   def pCO2 : Double = 0.0
   def pN: Double = 0.0
+
+  var pH2O: Double = 0.0
+  var other: Double = 0.0
 }
 
 case class Air (
-  var pO2 : Double = 0.0,
-  var pCO2 : Double = 0.0,
-  var pN: Double = 0.0 ) {
+                 var pO2 : Double = 0.0,
+                 var pCO2 : Double = 0.0,
+                 var pN: Double = 0.0 ) {
 
   var pH2O: Double = 0.0
   var other: Double = 0.0

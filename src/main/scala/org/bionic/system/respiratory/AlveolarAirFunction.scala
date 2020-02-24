@@ -11,7 +11,7 @@ import atmospheric.Air
  *  Paxx --> Arterial GAS
  *
 */
-object AlveolarAir {
+object AlveolarAirFunction {
 
   /**
    * Pression Vaopor Water at temperature in mmHg

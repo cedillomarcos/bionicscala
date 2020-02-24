@@ -15,6 +15,7 @@ import org.bionic.system.respiratory.RespiratoryTract.NerveLungs
  */
 object SpinalCord {
 
+  //To medulla
   val aefferent = medullaSystem.actorOf(Props[AfferentNerves], "Afferent")
 
   /*
