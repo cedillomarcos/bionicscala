@@ -25,6 +25,12 @@ class BloodCell {
         case Oxygen => println()
       }
   }
+  //                          anydrasa carbonica
+  //1.- el co2 se une al h2O ==> HCO3(bicarbonato) + H => HHb
+  //2.- se lo salta y se une a la Hb directamente HbCo2
+  private def CarbonDioxide(): Unit ={
+
+  }
 
 
    //iplicitamente cambia el co2 por cloro y se aosciada

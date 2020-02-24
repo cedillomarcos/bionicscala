@@ -5,7 +5,7 @@ import atmospheric.{Air, AirS}
 import org.bionic.system.nervous.SpinalCord.AfferentNerves
 import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
 import AlveolarAirFunction._
-import org.bionic.system.nervous.{Nerve, NerveTermination}
+import org.bionic.system.nervous.{Nerve, NerveTermination, SpinalCord}
 
 import scala.concurrent.ExecutionContext
 import scala.reflect.ClassTag
@@ -22,9 +22,9 @@ import scala.reflect.ClassTag
  */
 object RespiratoryTract {
   implicit var airInspired:Air = null
-  val airTrachea = Trachea().air(_)
-  val airBronchi = Bronchi().air(_)
-  val lungs = Lungs()
+  private val airTrachea = Trachea().air(_)
+  private val airBronchi = Bronchi().air(_)
+  private val lungs = Lungs()
 
   def apply(air:Air) = {
     this.airInspired = air
@@ -108,24 +108,13 @@ Vapor de agua 6,18% 47 mmHg
 
     //(CRF) (FRC = Functional Residual Capacity)
     var FRC:Double = 2300
-    val aefferent = medullaSystem.actorOf(Props[AfferentNerves], "Afferent")
+
 
 
     def action(action:String):Air = action match {
       case "Inspiration" => interchange((airTrachea andThen (airBronchi)) (airInspired))
       case "Expiration" => (airBronchi andThen(airTrachea))(airInspired)
     }
-
-    private def breathing () = {
-      println(airInspired)
-      //nterchange(airInspired)
-      //aefferent ! "(+)CO2"
-    }
-
-    def CVP(): Unit = {
-
-    }
-
 
     private def interchange(implicit air: => Air): Air ={
       println("Interchange-->" + air)
@@ -149,7 +138,9 @@ Vapor de agua 6,18% 47 mmHg
     }
 
 
-
+    private def bioreceptors()  ={
+      SpinalCord.aefferent ! "(+)CO2"
+    }
 
   }
 }

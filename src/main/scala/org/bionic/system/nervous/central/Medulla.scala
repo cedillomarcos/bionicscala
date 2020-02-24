@@ -64,7 +64,8 @@ object Medulla {
 
     val breathRtm =
       medullaSystem.scheduler.scheduleWithFixedDelay(Duration.Zero, breathRTM, efferent, "Breath")
-
+    val heartRtm =
+      medullaSystem.scheduler.scheduleWithFixedDelay(Duration.Zero, breathRTM, efferent, "Diastole")
   }
 
   class MedullaReceptors extends Actor {
