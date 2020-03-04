@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bionicscala.iml" filepath="$PROJECT_DIR$/.idea/modules/bionicscala.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bionicscala-build.iml" filepath="$PROJECT_DIR$/.idea/modules/bionicscala-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bionichscala.iml" filepath="$PROJECT_DIR$/.idea/modules/bionichscala.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bionichscala-build.iml" filepath="$PROJECT_DIR$/.idea/modules/bionichscala-build.iml" />
     </modules>
   </component>
 </project>
