@@ -1,14 +1,11 @@
 package org.bionic.system.respiratory
 
-import akka.actor.{Actor, Props}
-import atmospheric.{Air, AirS}
 import org.bionic.system.nervous.SpinalCord.AfferentNerves
 import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
 import AlveolarAirFunction._
+import akka.actor.Actor
+import atmospheric.Air
 import org.bionic.system.nervous.{Nerve, NerveTermination, SpinalCord}
-
-import scala.concurrent.ExecutionContext
-import scala.reflect.ClassTag
 
 /**
  * The lung capacity depends on the person's age, height, weight, sex,

@@ -2,6 +2,7 @@ package org.bionic.system.nervous
 
 import akka.actor.{Actor, ActorSystem, Props}
 import org.bionic.system.circulatory.Circulatorium
+import org.bionic.system.circulatory.Circulatorium.NerveHeart
 import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
 import org.bionic.system.respiratory.Respiratorium.NerveLungs
 

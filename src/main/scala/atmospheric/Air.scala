@@ -21,7 +21,6 @@ case class Air (
   var pH2O: Double = 0.0
   var other: Double = 0.0
 
-
   def pression(): Double = pO2 + pCO2 + pN + pH2O + other
 
   override def toString()
