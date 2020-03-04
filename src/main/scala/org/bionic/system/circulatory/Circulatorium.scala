@@ -2,7 +2,7 @@ package org.bionic.system.circulatory
 
 import akka.actor.Actor
 import atmospheric.Air
-import org.bionic.system.respiratory.RespiratoryTract.{airBronchi, airInspired, airTrachea}
+import org.bionic.system.respiratory.Respiratorium.{airBronchi, airInspired, airTrachea}
 
 object Circulatorium {
 

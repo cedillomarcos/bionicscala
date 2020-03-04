@@ -1,5 +1,5 @@
 import atmospheric.{Air, AirComposition}
-import org.bionic.system.circulatory.BloodCell
+import org.bionic.system.circulatory.{BioMin, BloodCell, Cl, Gas, HCO3, O2}
 
 object TestAir extends App {
   // altitude 0 pression 760 mmHG
@@ -19,10 +19,12 @@ object TestAir extends App {
  // airT.daltonLaw(760)
 
 
+  "iS in UPPER".toLowerCase.capitalize
 
   val bloodcell = new BloodCell()
   //bloodcell.transport["CO2"](20)
-  bloodcell.transport["O2"](20)
+  bloodcell.diffusion[Gas](O2)(HCO3)
+
 }
 
 

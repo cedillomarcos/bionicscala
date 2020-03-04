@@ -20,33 +20,51 @@ import scala.reflect.ClassTag
  *
  * R = producción de carbónico/ consumo de oxígeno
  */
-object RespiratoryTract {
+object Respiratorium {
+  /** air inside human */
   implicit var airInspired:Air = null
+
+
+
   private val airTrachea = Trachea().air(_)
   private val airBronchi = Bronchi().air(_)
   private val lungs = Lungs()
+
+
+
+  type Entorno = String => Int
 
   def apply(air:Air) = {
     this.airInspired = air
     air
   }
 
+  sealed abstract class Tract {
+    implicit def conduction(): Air
+  }
+
+  sealed trait Exterior {
+    implicit def inout(implicit air:Air):Air
+  }
+
+
 
 
   /**
    *
    */
-  case class Trachea() {
-     def air(air: Air):Air = {
-       println("Trachea" + air)
-       air
-     }
+  case class Trachea() extends Tract with Exterior {
+
+     def air(air:Air):Air = air
+
+     implicit def inout(implicit air:Air): Air = air
+     implicit def conduction(): Air = inout
   }
 
   /**
    *
    */
-  case class Bronchi(){
+  case class Bronchi() {
 
     def air(air:Air):Air = {
       daltonLaw (changePression andThen addHumidity)(airInspired)

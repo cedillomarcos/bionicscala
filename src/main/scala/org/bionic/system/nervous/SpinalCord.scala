@@ -3,7 +3,7 @@ package org.bionic.system.nervous
 import akka.actor.{Actor, ActorSystem, Props}
 import org.bionic.system.circulatory.Circulatorium
 import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
-import org.bionic.system.respiratory.RespiratoryTract.NerveLungs
+import org.bionic.system.respiratory.Respiratorium.NerveLungs
 
 /**
  * Spinal cord acts as a bus interchange messages between the central nerves system and
