@@ -1,34 +1,32 @@
 package atmospheric
-
-import atmospheric.AirComposition.pressAtAltitude
-
 import scala.math.{abs, pow}
 
 /**
  *  Air composition calculation
  *
  *  Oxygen at level sea are
- *  (O2) 209.460 porcentaje pression == 20.946 % == 0.21
+ *  (O2) 20.946 % == 0.21 == 209.460 percent pression ==
+ *  (Co2) 0,04 % == 400.00 ppmv
+ *  (N2) 78 % == 780.840 ppmv
+ *  (Ar) 0,934 % == 9.340 ppmv
  *
+ *  Pression at sea level in mmHg 760
  */
-// 20,9% de oxígeno (O2), 0,03% de dióxido de carbono (CO2) y 78% de nitrógeno (N).
-/* nitrógeno (N2)	780.840 ppmv (78,084 %)
-oxígeno (O2)	209.460 ppmv (20,946 %)
-argón (Ar)	9.340 ppmv (0,934 %)
-dióxido de carbono (CO2)	400 ppmv (0,04 %) */
 object AirComposition {
      // pression at sea level mmHg
      val ppatmAtSeaLevel : Int = 760 // at sea level
      val airdensity: Double = 1.20 // kg/m3
      // Air porcentaje in the atm in total percent
      val ppmvO2 = 0.21//209.46
-     val ppmvN2 = 0.78//780.84
+     val ppmvN2 = 0.7806//780.84
      val ppmvCO2 = 0.004
      val ppmvH2O = 0.004
      val others = 0.092
 
-     //STPD Standard Temperature Pression Dry
-     def airDry(altitude: Int) : Air = {
+     /*
+       STPD Standard Temperature Pression Dry
+      */
+     def airDry(altitude: Int): Air = {
 
        var air:Air = Air(
                     partialByAltitude(pressAtAltitude, altitude, ppmvO2),
@@ -39,7 +37,7 @@ object AirComposition {
        air
     }
 
-    def DaltonLaw(f: Int => Int, altitude: Int, air: Air) : Air = {
+    def DaltonLaw(f: Int => Int, altitude: Int, air: Air): Air = {
       air.other = f(altitude) -  air.pression()
       air
     }
@@ -59,8 +57,5 @@ object AirComposition {
    * @return
    */
    private def partialByAltitude(press: Int => Int, altitude: Int, gas: Double ) : Double = press(altitude) * gas
-
-
-
 
 }

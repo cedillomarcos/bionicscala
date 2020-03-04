@@ -12,7 +12,7 @@ class BloodCell {
   private var Cl = null
 
   //hemoglobine chain
-  var hem:Array[String] = new Array[String](4)
+  private var hem:Array[String] = new Array[String](4)
   // oxihemoglobina Hb02
   // desoxihemoglobina Hb
   // carboxihemoglobina (Co2)
@@ -20,10 +20,7 @@ class BloodCell {
   def T:String = "O2"
 
   def diffusion[Gas](gas:Gas) = {
-      gas match {
-        case CarbonDioxide => println()
-        case Oxygen => println()
-      }
+
   }
   //                          anydrasa carbonica
   //1.- el co2 se une al h2O ==> HCO3(bicarbonato) + H => HHb
