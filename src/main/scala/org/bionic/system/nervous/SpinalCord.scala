@@ -31,7 +31,7 @@ object SpinalCord {
 
     override def receive: Receive = {
       case "Breath" => lungs ! "Inspiration"
-      case "Heart" => heart ! "Pump"
+      case "Heart" => heart ! "Diastole"
     }
   }
 

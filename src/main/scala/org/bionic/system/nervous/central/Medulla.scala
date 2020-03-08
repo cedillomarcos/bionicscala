@@ -56,7 +56,7 @@ object Medulla {
   implicit val executor = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
   private var breathRTM = 4000.millisecond
-  private var hearRTMss = 4
+  private var hearRTMss = 1.second
 
   //private[this] val spinal = SpinalCord()
 
@@ -65,7 +65,7 @@ object Medulla {
     val breathRtm =
       medullaSystem.scheduler.scheduleWithFixedDelay(Duration.Zero, breathRTM, efferent, "Breath")
     val heartRtm =
-      medullaSystem.scheduler.scheduleWithFixedDelay(Duration.Zero, breathRTM, efferent, "Diastole")
+      medullaSystem.scheduler.scheduleWithFixedDelay(Duration.Zero, hearRTMss, efferent, "Diastole")
   }
 
   class MedullaReceptors extends Actor {
@@ -73,5 +73,4 @@ object Medulla {
       case "(+)CO2" => println ("High CO2")
     }
   }
-
 }

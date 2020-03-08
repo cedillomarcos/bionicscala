@@ -1,8 +1,10 @@
 package org.bionic.system.circulatory
 
 object BloodStream {
+  // acid ion of H+
+  var pH: Double = 7.4
 
-  var PH:Double = 7.4
+
 
   /**
    *

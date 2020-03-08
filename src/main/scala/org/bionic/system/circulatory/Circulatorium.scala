@@ -8,6 +8,7 @@ object Circulatorium {
 
   private val heart = Heart()
 
+
   class NerveHeart extends Actor {
     import context._
     override def receive: Receive = {
@@ -16,11 +17,15 @@ object Circulatorium {
   }
 
 
+  /**
+   * HEART Organ
+   *
+   */
   case class Heart(){
 
     def action(action:String) = action match {
-      case "Diastole" => println("Diastole")
-      case "Systole" => println("Sytole")
+      case "Diastole" => println("Diastole") //Contraccion
+      case "Systole" => println("Sytole") // relajacion
     }
   }
 }

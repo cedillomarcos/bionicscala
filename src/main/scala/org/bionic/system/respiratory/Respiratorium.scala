@@ -147,8 +147,6 @@ Vapor de agua 6,18% 47 mmHg
       //pression arterial
       var PaCO2 = 40
       var PaO2 = 100
-
-
       air
     }
 

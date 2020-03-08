@@ -10,8 +10,16 @@ class BloodCellTest extends FlatSpec with Matchers {
 
   "A BloodCell" should "diffuse inside O2 at high pressure" in {
 
-    val blodcell = new BloodCell()
 
+    var bloodcell = new BloodCell()
+
+    bloodcell.diffusion()
+
+
+  }
+
+
+  "A BloodCell" should "diffuse inside O2 ph >" in {
 
 
   }
