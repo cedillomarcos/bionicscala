@@ -1,10 +1,9 @@
 package org.bionic.system.circulatory
 
-object BloodStream {
+trait BloodStream
+object BloodStream extends BloodStream {
   // acid ion of H+
   var pH: Double = 7.4
-
-
 
   /**
    *
@@ -17,11 +16,13 @@ object BloodStream {
    */
 
   case class VenousStream() {
-
+    var PvCO2 = 45
+    var PvO2 = 40
   }
 
   case class ArterialStream(){
-
+    var PaCO2 = 40
+    var PaO2 = 100
   }
 
 }

@@ -1,11 +1,10 @@
 package org.bionic.system.respiratory
 
-import org.bionic.system.nervous.SpinalCord.AfferentNerves
-import org.bionic.system.nervous.central.Medulla.{MedullaReceptors, medullaSystem}
 import AlveolarAirFunction._
 import akka.actor.Actor
 import atmospheric.Air
 import org.bionic.system.nervous.{Nerve, NerveTermination, SpinalCord}
+import wvlet.log.Logger
 
 /**
  * The lung capacity depends on the person's age, height, weight, sex,
@@ -18,16 +17,13 @@ import org.bionic.system.nervous.{Nerve, NerveTermination, SpinalCord}
  * R = producción de carbónico/ consumo de oxígeno
  */
 object Respiratorium {
+
   /** air inside human */
   implicit var airInspired:Air = null
-
-
 
   private val airTrachea = Trachea().air(_)
   private val airBronchi = Bronchi().air(_)
   private val lungs = Lungs()
-
-
 
   type Entorno = String => Int
 
@@ -44,16 +40,9 @@ object Respiratorium {
     implicit def inout(implicit air:Air):Air
   }
 
-
-
-
-  /**
-   *
-   */
   case class Trachea() extends Tract with Exterior {
 
      def air(air:Air):Air = air
-
      implicit def inout(implicit air:Air): Air = air
      implicit def conduction(): Air = inout
   }
@@ -73,14 +62,6 @@ object Respiratorium {
       airHum
     }
 
-    /***
-     en el alveolo habrá a BTPS
-   Oxígeno 19,61% 149 mmHg
-Dióxido de carbono 0,03% 0,2 mmHg
-Nitrógeno 74,18% 563,8 mmHg
-Vapor de agua 6,18% 47 mmHg
-
-    ***/
     //hay que compesar el gass por la ley de datlon
     val changePression = (air:Air) => {
       val PiO2 = pressionAirInspired(air.pression(),pH2OByTemp, FiO2(air.pO2, air.pression()))
@@ -99,14 +80,10 @@ Vapor de agua 6,18% 47 mmHg
 
   }
 
-
-
   class NerveLungs extends Actor {
     import context._
     override def receive: Receive = {
-      case x:"Inspiration" => {
-        lungs.action(x)
-      }
+      case x:"Inspiration" => lungs.action(x)
     }
   }
 
@@ -120,11 +97,10 @@ Vapor de agua 6,18% 47 mmHg
    *  pulmones después de realizar una inspiración normal (2500 mL de aire)
    */
   case class Lungs() {
+    private val logger = Logger.of[Lungs]
 
     //(CRF) (FRC = Functional Residual Capacity)
     var FRC:Double = 2300
-
-
 
     def action(action:String):Air = action match {
       case "Inspiration" => interchange((airTrachea andThen (airBronchi)) (airInspired))
@@ -132,7 +108,6 @@ Vapor de agua 6,18% 47 mmHg
     }
 
     private def interchange(implicit air: => Air): Air ={
-      println("Interchange-->" + air)
 
       //pression venosa
       var PvCO2 = 45
@@ -140,9 +115,9 @@ Vapor de agua 6,18% 47 mmHg
 
       //Pression alveolar valores de referencia
       //var PACO2 = 40 var PAO2 = 107
-
       var PressAO2 = PAO2(air.pression(),pH2OByTemp,FiO2(air.pO2,air.pression()))
-      println("Pression alveolar==>" + PressAO2)
+
+      logger.trace(s"O2:${air.pO2}|CO2:${air.pCO2}|N:${air.pN}|PAO2:${PressAO2}")
 
       //pression arterial
       var PaCO2 = 40
@@ -150,8 +125,8 @@ Vapor de agua 6,18% 47 mmHg
       air
     }
 
-
     private def bioreceptors()  ={
+      //CO2 Sensor
       SpinalCord.aefferent ! "(+)CO2"
     }
 

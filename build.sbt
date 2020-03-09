@@ -7,7 +7,9 @@ ThisBuild / name             := "BionicHScala"
 libraryDependencies += "com.typesafe.akka" %% "akka-actor-typed" % "2.6.3"
 libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.6.3"
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
-libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
+// Logger
+libraryDependencies += "org.wvlet.airframe" % "airframe-log_2.12" % "20.3.0"
+libraryDependencies += "org.apache.logging.log4j" % "log4j-jul" % "2.6.1"
 
+// Scala Test
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"

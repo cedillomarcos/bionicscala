@@ -10,12 +10,15 @@ package org.bionic.system.circulatory
  * CO2 + H2O ⇔ H2CO3 ⇔ H+ + HCO3-
  */
 
+sealed trait Hemo
+case object HbCO2 extends Hemo { val name="carbaminohemoglobin" }
+case object HbO2 extends Hemo {  val name="Oxihemoglobin" }
+
 class BloodCell {
 
   //hemoglobine chain initial filled with hidrogenion
-  val Hb = new Array[Gas](4)
-  Hb(0)=H
-  Hb(1)=CO2
+  val Hb = new Array[Hemo](4)
+  Hb(0)=HbCO2
   var flag:BioMin = Cl //Flag Control
 
   def diffusion[G <: Gas, F <: BioMin](gas: G)(implicit flag: F): G = {
@@ -37,11 +40,10 @@ class BloodCell {
 
     val gHb = Hb(0)
 
+    (gas, gas) = react(H,HbCO2)
 
-    react(H,CO2)
 
-    compose(react(H,CO2),=>)
-
+  //  map[Tuple2[Gas,Gas]](react(H,CO2))
 
     //rotatedView(1)
     //saca cloro
@@ -51,18 +53,17 @@ class BloodCell {
 
   def compose[A, B, C] (f: A => B, g: B => C): A => C = f andThen g
 
-
-
-
-  def react (A:Gas, B:Gas) =  A match { case A == H if B == CO2 => (H, CO2)}
-
+  def react (A:Gas, B:Gas):(Gas,Gas) = (A,B) match {
+     case ()
+     case (CO2,H) => (H,CO2)
+  }
   def react2 (g:Hydron)(f:Acid):(BioMin,Gas) = f match { case HCO3 if g == H => (H2O,CO2) }
 
 
   //HCO2 --> H + CO2
   // H + HCO3 --> H20 + C02
-  private def map[B](f:Gas => B, acid:String) = {
-      f(acid)
+  private def map[B:(Gas,Gas), C:(Gas,Gas), D:(Gas,Gas)](f: B => C, quimic: D): B => C = {
+    f
   }
 
 
